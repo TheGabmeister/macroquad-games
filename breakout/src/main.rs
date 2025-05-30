@@ -15,20 +15,6 @@ const BRICK_PADDING: f32 = 8.0;
 const BRICK_OFFSET_TOP: f32 = 60.0;
 const BRICK_OFFSET_LEFT: f32 = 32.0;
 
-struct Ball {
-    pos: Vec2,
-    vel: Vec2,
-}
-
-struct Paddle {
-    x: f32,
-}
-
-struct Brick {
-    rect: Rect,
-    alive: bool,
-}
-
 fn window_conf() -> Conf {
     Conf {
         window_title: "Breakout".to_owned(),
@@ -163,4 +149,18 @@ fn create_bricks() -> Vec<Brick> {
         }
     }
     bricks
+}
+
+struct Ball {
+    pos: Vec2,
+    vel: Vec2,
+}
+
+struct Paddle {
+    x: f32,
+}
+
+struct Brick {
+    rect: Rect,
+    alive: bool,
 }
