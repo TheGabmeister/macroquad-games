@@ -72,19 +72,22 @@ async fn main() {
         bullets.retain(|b| !b.is_offscreen());
 
         // Collision detection (simple)
+        let mut reset_indices = Vec::new();
         for (i, tank) in tanks.iter().enumerate() {
             for bullet in bullets.iter() {
                 if bullet.owner != i
                     && tank.pos.distance(bullet.pos) < (TANK_SIZE.x + BULLET_SIZE.x) / 2.0
                 {
-                    // Reset tank position on hit
-                    tanks[i].pos = if i == 0 {
-                        vec2(150.0, 450.0)
-                    } else {
-                        vec2(570.0, 450.0)
-                    };
+                    reset_indices.push(i);
                 }
             }
+        }
+        for i in reset_indices {
+            tanks[i].pos = if i == 0 {
+                vec2(150.0, 450.0)
+            } else {
+                vec2(570.0, 450.0)
+            };
         }
 
         // Draw tanks and bullets
@@ -101,7 +104,6 @@ async fn main() {
         next_frame().await;
     }
 }
-
 
 const TANK_SIZE: Vec2 = Vec2::new(40.0, 60.0);
 const BULLET_SIZE: Vec2 = Vec2::new(8.0, 16.0);
